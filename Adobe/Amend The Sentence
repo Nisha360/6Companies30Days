@@ -1,0 +1,56 @@
+// { Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+ // } Driver Code Ends
+
+
+class Solution{
+    public:
+    string amendSentence (string s)
+    {
+        // your code here
+        string x="";
+        x+=tolower(s[0]);
+        string ans="";
+        int i=1;
+        int n=s.length();
+        if(n==1) {
+            ans.push_back(tolower(s[0]));
+            return ans;
+        }
+        while(i<n){
+            while(i<n && !(s[i]>='A' && s[i]<='Z')){
+                x+=s[i];
+                i++;
+            }
+            ans+=x;
+            
+            if(i!=n-1 && i!=n)ans.push_back(' ');
+            //cout<<ans<<endl;
+            if(i<n) x=tolower(s[i]);
+            i++;
+            
+            
+        }
+        if(x.size()==1 ){
+            ans.push_back(' ');
+            ans+=x;
+        }
+       // cout<<ans[ans.size()-1]<<endl;
+        
+        return ans;
+    }
+};
+
+// { Driver Code Starts.
+int main()
+{
+	int t; cin >> t;
+	while (t--)
+	{
+		string s; cin >> s;
+		Solution ob;
+		cout << ob.amendSentence (s) << endl;
+	}
+}  // } Driver Code Ends
