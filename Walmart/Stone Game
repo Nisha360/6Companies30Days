@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int dp[1001][1001];
+    int helper(vector<int> &piles,int i,int j){
+     if(i>j) return dp[i][j]=0;
+        if(i==j) return dp[i][j]=piles[i];
+        
+        if(dp[i][j]!=-1) return dp[i][j];
+        
+        int l=piles[i]+min(dp[i+2][j],dp[i+1][j-1]);
+        int r=piles[j]+min(dp[i+1][j-1],dp[i][j-2]);
+        
+        return dp[i][j]=max(l,r);
+        
+    }
+    bool stoneGame(vector<int>& piles) {
+        int n=piles.size();
+        int sum=0;
+        for(int i=0;i<n;i++) sum+=piles[i];
+        int dp[n][n];
+        for(int g=0;g<n;g++){
+            for(int i=0,j=g;j<n;i++,j++){
+                if(g==0){
+                    dp[i][j]=piles[i];
+                }
+                else if(g==1){
+                    dp[i][j]=max(piles[i],piles[j]);
+                }
+                else{
+                    dp[i][j]=max(piles[i]+min(dp[i+1][j],dp[i+1][j-1]),piles[j]+min(dp[i+1][j-1],dp[i][j-2]));
+                }
+            }
+        }
+        
+        int k=dp[0][n-1];
+        if(k>sum-k) return true;
+        return false;
+    }
+};
